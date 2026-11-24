@@ -1,0 +1,1446 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Pick a Class — A First-Time Player's Guide</title>
+<style>
+    :root {
+        --bg: #14161b;
+        --panel: #1d2028;
+        --panel-2: #23262f;
+        --ink: #e8e4da;
+        --muted: #9aa0ab;
+        --gold: #d9a942;
+        --gold-soft: #f0cd7c;
+        --gold-dim: #8a6d2f;
+        --border: #2e323c;
+        --radius: 12px;
+        --serif: "Iowan Old Style", "Palatino Linotype", Palatino, Georgia, serif;
+        --sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+        margin: 0;
+        background: var(--bg);
+        color: var(--ink);
+        font-family: var(--sans);
+        font-size: 17px;
+        line-height: 1.55;
+        -webkit-text-size-adjust: 100%;
+    }
+
+    .wrap {
+        max-width: 1040px;
+        margin: 0 auto;
+        padding: 2rem 1.25rem 4rem;
+    }
+
+    h1, h2, h3 { font-family: var(--serif); font-weight: 600; letter-spacing: 0.01em; }
+
+    /* ---------- Header ---------- */
+
+    .site-head { text-align: center; margin-bottom: 2rem; }
+
+    .site-head h1 {
+        font-size: 2.3rem;
+        margin: 0 0 0.35rem;
+        color: var(--gold);
+    }
+
+    .site-head p { margin: 0; color: var(--muted); }
+
+    .rule {
+        height: 1px;
+        background: linear-gradient(90deg, transparent, var(--gold-dim), transparent);
+        margin: 1.5rem 0;
+        border: 0;
+    }
+
+    /* ---------- Buttons ---------- */
+
+    .btn {
+        font: inherit;
+        font-size: 0.95rem;
+        padding: 0.55rem 1.1rem;
+        border-radius: 999px;
+        border: 1px solid var(--border);
+        background: var(--panel-2);
+        color: var(--ink);
+        cursor: pointer;
+        transition: border-color 0.15s ease, background 0.15s ease, transform 0.15s ease;
+    }
+
+    .btn:hover:not(:disabled) { border-color: var(--gold); }
+
+    .btn:disabled { opacity: 0.35; cursor: default; }
+
+    .btn-primary {
+        background: var(--gold);
+        border-color: var(--gold);
+        color: #17181c;
+        font-weight: 600;
+    }
+
+    .btn-primary:hover { background: var(--gold-soft); border-color: var(--gold-soft); }
+
+    :focus-visible { outline: 2px solid var(--gold); outline-offset: 3px; }
+
+    /* ---------- Home ---------- */
+
+    .mode-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+        gap: 1.25rem;
+        margin-top: 2rem;
+    }
+
+    .home-prompt {
+        text-align: center;
+        font-family: var(--sans);
+        font-size: 1.15rem;
+        font-weight: 400;
+        color: var(--muted);
+        margin: 0;
+    }
+
+    .mode-card {
+        font: inherit;
+        text-align: left;
+        background: var(--panel);
+        border: 1px solid var(--border);
+        border-radius: var(--radius);
+        padding: 1.5rem;
+        color: var(--ink);
+        cursor: pointer;
+        transition: border-color 0.15s ease, transform 0.15s ease;
+    }
+
+    .mode-card:hover { border-color: var(--gold); transform: translateY(-2px); }
+
+    .mode-card .glyph { font-size: 1.8rem; display: block; margin-bottom: 0.5rem; }
+
+    .mode-card h3 { margin: 0 0 0.4rem; font-size: 1.3rem; color: var(--gold-soft); }
+
+    .mode-card p { margin: 0; color: var(--muted); font-size: 0.95rem; }
+
+    /* ---------- Screen chrome ---------- */
+
+    .screen-head {
+        display: flex;
+        align-items: baseline;
+        justify-content: space-between;
+        gap: 1rem;
+        flex-wrap: wrap;
+        margin-bottom: 1.25rem;
+    }
+
+    .screen-head h2 { margin: 0; font-size: 1.6rem; color: var(--gold-soft); }
+
+    /* ---------- Quiz ---------- */
+
+    .progress { color: var(--muted); font-size: 0.85rem; margin: 0 0 0.25rem; }
+
+    .breadcrumb {
+        color: var(--gold-dim);
+        font-size: 0.8rem;
+        margin: 0 0 1.25rem;
+        min-height: 1.2em;
+    }
+
+    .breadcrumb b { color: var(--muted); font-weight: 400; }
+
+    .question {
+        font-family: var(--serif);
+        font-size: 1.55rem;
+        margin: 0 0 1.25rem;
+        line-height: 1.3;
+    }
+
+    .answers { display: grid; gap: 0.75rem; }
+
+    .answer {
+        font: inherit;
+        text-align: left;
+        background: var(--panel);
+        border: 1px solid var(--border);
+        border-left: 3px solid var(--border);
+        border-radius: var(--radius);
+        padding: 1rem 1.15rem;
+        color: var(--ink);
+        cursor: pointer;
+        transition: border-color 0.15s ease, background 0.15s ease;
+    }
+
+    .answer:hover { background: var(--panel-2); border-color: var(--gold-dim); border-left-color: var(--gold); }
+
+    .answer .label { display: block; font-weight: 600; }
+
+    .answer .hint { display: block; color: var(--muted); font-size: 0.88rem; margin-top: 0.2rem; }
+
+    .quiz-foot { display: flex; gap: 0.6rem; margin-top: 1.75rem; flex-wrap: wrap; }
+
+    /* ---------- Cards ---------- */
+
+    .grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(290px, 1fr));
+        gap: 1rem;
+    }
+
+    .card {
+        background: var(--panel);
+        border: 1px solid var(--border);
+        border-radius: var(--radius);
+        padding: 1.25rem;
+    }
+
+    .card-top { display: flex; align-items: center; gap: 0.7rem; margin-bottom: 0.15rem; }
+
+    .card-top .glyph { font-size: 1.6rem; line-height: 1; }
+
+    .card h3 { margin: 0; font-size: 1.25rem; color: var(--gold-soft); }
+
+    .tagline { margin: 0 0 0.75rem; font-family: var(--serif); font-style: italic; color: var(--muted); }
+
+    .chips { display: flex; flex-wrap: wrap; gap: 0.35rem; margin-bottom: 0.85rem; }
+
+    .chip {
+        font-size: 0.7rem;
+        letter-spacing: 0.05em;
+        text-transform: uppercase;
+        color: var(--gold-soft);
+        background: rgba(217, 169, 66, 0.1);
+        border: 1px solid rgba(217, 169, 66, 0.28);
+        padding: 0.18rem 0.55rem;
+        border-radius: 999px;
+        white-space: nowrap;
+    }
+
+    .blurb { margin: 0 0 0.85rem; }
+
+    .card > .blurb:last-child { margin-bottom: 0; }
+
+    .play-if {
+        margin: 0;
+        padding-left: 0.8rem;
+        border-left: 2px solid var(--gold-dim);
+        color: var(--muted);
+        font-size: 0.93rem;
+    }
+
+    .card details summary {
+        cursor: pointer;
+        color: var(--gold-soft);
+        font-size: 0.9rem;
+        margin-bottom: 0.6rem;
+    }
+
+    /* Result screen */
+
+    .card-result { border-color: var(--gold-dim); border-left: 4px solid var(--gold); }
+
+    .result-kicker {
+        color: var(--muted);
+        font-size: 0.85rem;
+        text-transform: uppercase;
+        letter-spacing: 0.1em;
+        margin: 0 0 0.5rem;
+    }
+
+    .result-name {
+        font-size: 1.9rem;
+        margin: 0 0 0.25rem;
+        color: var(--gold);
+    }
+
+    .result-focus {
+        font-family: var(--serif);
+        font-size: 1.2rem;
+        font-style: italic;
+        color: var(--gold-soft);
+        margin: 0 0 1.25rem;
+    }
+
+    .focus-panel {
+        background: var(--panel);
+        border: 1px solid var(--border);
+        border-left: 4px solid var(--gold-dim);
+        border-radius: var(--radius);
+        padding: 1.15rem 1.25rem;
+        margin-top: 1rem;
+    }
+
+    .focus-panel h4 {
+        font-family: var(--serif);
+        font-size: 1.1rem;
+        margin: 0 0 0.5rem;
+        color: var(--gold-soft);
+    }
+
+    .focus-panel p { margin: 0; }
+
+    .ways { margin: 0.85rem 0 0; font-size: 0.85rem; color: var(--muted); }
+
+    .ways b { color: var(--gold-soft); font-weight: 600; }
+
+    /* "You're not done yet" block on the result screen */
+
+    .next-steps {
+        background: rgba(217, 169, 66, 0.06);
+        border: 1px solid var(--gold-dim);
+        border-radius: var(--radius);
+        padding: 1.25rem 1.4rem;
+        margin-top: 2.25rem;
+    }
+
+    .next-steps h4 {
+        font-family: var(--serif);
+        font-size: 1.2rem;
+        margin: 0 0 0.75rem;
+        color: var(--gold);
+    }
+
+    .next-steps ul { margin: 0 0 1.15rem; padding-left: 1.2rem; }
+
+    .next-steps li { margin-bottom: 0.6rem; }
+
+    .next-steps li:last-child { margin-bottom: 0; }
+
+    .next-steps b { color: var(--gold-soft); }
+
+    /* ---------- Ancestries ---------- */
+
+    .lead-note {
+        color: var(--muted);
+        margin: 0 0 1.5rem;
+        max-width: 62ch;
+    }
+
+    .alt-head { font-family: var(--serif); font-size: 1.2rem; margin: 2.25rem 0 0.85rem; color: var(--gold-soft); }
+
+    .card-alt { padding: 1rem; }
+
+    .card-alt h3 { font-size: 1.05rem; }
+
+    /* ---------- Filters ---------- */
+
+    .filters {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+        gap: 1rem;
+        margin-bottom: 1.25rem;
+    }
+
+    fieldset {
+        border: 1px solid var(--border);
+        border-radius: var(--radius);
+        background: var(--panel);
+        padding: 0.4rem 1rem 0.9rem;
+        margin: 0;
+    }
+
+    legend {
+        font-family: var(--serif);
+        font-size: 0.85rem;
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
+        color: var(--gold);
+        padding: 0 0.4rem;
+    }
+
+    .check {
+        display: flex;
+        align-items: center;
+        gap: 0.55rem;
+        padding: 0.2rem 0;
+        font-size: 0.93rem;
+        cursor: pointer;
+    }
+
+    .check input { accent-color: var(--gold); width: 1.05rem; height: 1.05rem; margin: 0; flex: none; }
+
+    .filter-bar {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 1rem;
+        flex-wrap: wrap;
+        margin-bottom: 1.25rem;
+    }
+
+    .count { color: var(--muted); font-size: 0.9rem; margin: 0; }
+
+    .empty {
+        background: var(--panel);
+        border: 1px dashed var(--gold-dim);
+        border-radius: var(--radius);
+        padding: 2rem;
+        text-align: center;
+        color: var(--muted);
+    }
+
+    /* ---------- Responsive ---------- */
+
+    @media (max-width: 640px) {
+        body { font-size: 16px; }
+        .wrap { padding: 1.5rem 1rem 3rem; }
+        .site-head h1 { font-size: 1.8rem; }
+        .mode-grid { grid-template-columns: 1fr; }
+        .grid { grid-template-columns: 1fr; }
+        .question { font-size: 1.3rem; }
+        .result-name { font-size: 1.6rem; }
+        .result-focus { font-size: 1.05rem; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+        * { transition: none !important; }
+        .mode-card:hover { transform: none; }
+    }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+    <header class="site-head">
+        <h1>Pick a Class</h1>
+        <p>Every role at the table, no rulebook required. Find the one that sounds like the character you want to be.</p>
+    </header>
+
+    <!-- ============ HOME ============ -->
+    <section id="view-home" aria-labelledby="home-h">
+        <h2 id="home-h" class="home-prompt">How would you like to choose?</h2>
+        <div class="mode-grid">
+            <button class="mode-card" type="button" data-go="quiz">
+                <span class="glyph" aria-hidden="true">🎲</span>
+                <h3>Take the quiz</h3>
+                <p>A handful of questions about the kind of hero you want to be. Four at most, and you can back up at any point. You come out with a class and a fighting style.</p>
+            </button>
+            <button class="mode-card" type="button" data-go="browse">
+                <span class="glyph" aria-hidden="true">📖</span>
+                <h3>Browse every class</h3>
+                <p>Read every class at once, and narrow the list with filters for how you fight, where your power comes from, and what you do for the party.</p>
+            </button>
+            <button class="mode-card" type="button" data-go="ancestries">
+                <span class="glyph" aria-hidden="true">🌍</span>
+                <h3>Pick an ancestry</h3>
+                <p>The other half of your character. Five to choose from, each with a small mechanical bonus you add straight to your sheet.</p>
+            </button>
+            <button class="mode-card" type="button" data-go="backgrounds">
+                <span class="glyph" aria-hidden="true">📜</span>
+                <h3>Pick a background</h3>
+                <p>Who your character was before the adventuring started. Pick one for a trait, a perk, and a reason to have it.</p>
+            </button>
+        </div>
+    </section>
+
+    <!-- ============ QUIZ ============ -->
+    <section id="view-quiz" aria-labelledby="quiz-h" hidden>
+        <div class="screen-head">
+            <h2 id="quiz-h">The Quiz</h2>
+            <button class="btn" type="button" data-go="home">← Home</button>
+        </div>
+
+        <div id="quiz-stage" aria-live="polite"></div>
+    </section>
+
+    <!-- ============ BROWSE ============ -->
+    <section id="view-browse" aria-labelledby="browse-h" hidden>
+        <div class="screen-head">
+            <h2 id="browse-h" tabindex="-1">Every Class</h2>
+            <button class="btn" type="button" data-go="home">← Home</button>
+        </div>
+
+        <form id="filters" class="filters"></form>
+
+        <div class="filter-bar">
+            <p class="count" id="count" aria-live="polite"></p>
+            <button class="btn" type="button" id="clear-filters">Clear filters</button>
+        </div>
+
+        <div id="class-grid" class="grid"></div>
+    </section>
+
+    <!-- ============ ANCESTRIES ============ -->
+    <section id="view-ancestries" aria-labelledby="ancestries-h" hidden>
+        <div class="screen-head">
+            <h2 id="ancestries-h" tabindex="-1">Pick an Ancestry</h2>
+            <button class="btn" type="button" data-go="home">← Home</button>
+        </div>
+
+        <p class="lead-note">Each ancestry comes with a real bonus — pick whichever sounds like the person you want to play, and add its bonus to your character sheet. So there's no quiz for this one, just the list.</p>
+
+        <div id="ancestry-grid" class="grid"></div>
+
+        <h4 class="alt-head">Worth knowing</h4>
+        <div id="ancestry-notes" class="grid"></div>
+    </section>
+
+    <!-- ============ BACKGROUNDS ============ -->
+    <section id="view-backgrounds" aria-labelledby="backgrounds-h" hidden>
+        <div class="screen-head">
+            <h2 id="backgrounds-h" tabindex="-1">Pick a Background</h2>
+            <button class="btn" type="button" data-go="home">← Home</button>
+        </div>
+
+        <p class="lead-note">A glimpse of who your character was before this. Pick whichever trait and story hook sounds the most fun to play — these are starting points, not a locked-in history.</p>
+
+        <div id="background-grid" class="grid"></div>
+
+        <h4 class="alt-head">Worth knowing</h4>
+        <div id="background-notes" class="grid"></div>
+    </section>
+
+</div>
+
+<script>
+// =====================================================================
+//  DATA — edit these four tables to change the content of the page.
+// =====================================================================
+
+const CLASSES = [
+    {
+        id: 'berserker',
+        name: 'Berserker',
+        glyph: '🪓',
+        tagline: 'Pain is just information you ignore.',
+        blurb: "You don't swing a weapon so much as let one loose. Raging turns the dial on both ends at once — your strikes land harder, and the hits coming back at you land softer, like the fury itself is standing between you and the pain. You don't plan a fight. You arrive in the middle of one, and decide how angry to get.",
+        playIf: "Play this if you want to be the biggest threat on the field by taking damage instead of avoiding it, and you don't mind your own health doing some of the talking.",
+        tags: ['weapons', 'frontline', 'no-magic', 'damage', 'moderate'],
+        alternates: ['oathsworn', 'zephyr'],
+        focusQuestion: "What's in your hands when the fury hits?",
+        focuses: [
+            {
+                id: 'great-weapon',
+                short: 'Great weapon',
+                label: 'One huge two-handed weapon',
+                hint: 'Every hit is a swing with your whole body behind it.',
+                brief: 'A greataxe or maul, no shield, barely any armor. The hardest-hitting option in the game, and the one most willing to trade wounds for them.',
+            },
+            {
+                id: 'two-weapon',
+                short: 'Two weapons',
+                label: 'A weapon in each hand',
+                hint: 'More swings means more chances for the fury to find an opening.',
+                brief: "An axe in each fist. Less behind any single hit than the two-hander, but you're already swinging again before the first one lands.",
+            },
+            {
+                id: 'sword-shield',
+                short: 'Weapon & shield',
+                label: 'One weapon and a shield',
+                hint: 'You can still be hard to put down even between rages.',
+                brief: 'A battleaxe and a shield — tougher to drop in the lulls between rages, trading a little raw damage for the staying power to keep raging again next round.',
+            },
+        ],
+    },
+    {
+        id: 'cheat',
+        name: 'Cheat',
+        glyph: '🎲',
+        tagline: 'The dice were never fair, and neither are you.',
+        blurb: "Somewhere between a thief and a gambler, you've decided that the rules of a fair fight are a suggestion. You load the dice, pull a hidden blade, bend the plain truth into something more useful — and while everyone else is still reacting to the last trick, you're already setting up the next one. Luck isn't something that happens to you. It's a tool you keep sharpened.",
+        playIf: 'Play this if you want to win by bending the rules instead of beating them straight, turning bad rolls into good ones and good rolls into great ones.',
+        tags: ['weapons', 'sneaky', 'damage', 'no-magic', 'face', 'easy'],
+        alternates: ['hunter', 'zephyr'],
+        focusQuestion: "What's your edge when steel comes out?",
+        focuses: [
+            {
+                id: 'two-weapon',
+                short: 'A blade in each hand',
+                label: 'A weapon in each hand',
+                hint: 'Twice the chances to find the gap in their guard.',
+                brief: "A dagger in each hand and no interest in a fair exchange. More swings per turn than almost anyone, and more chances to cheat your way past a miss.",
+            },
+            {
+                id: 'bow',
+                short: 'Hand crossbow',
+                label: 'A bow (or hand crossbow)',
+                hint: 'The best trick is not being within arm’s reach at all.',
+                brief: "A light crossbow or shortbow, fired from exactly where nobody's looking. Keeps you out of the swing of things while your tricks do the rest.",
+            },
+        ],
+    },
+    {
+        id: 'commander',
+        name: 'Commander',
+        glyph: '📯',
+        tagline: "You don't fight alone, and neither does anyone near you.",
+        blurb: "A battlefield is a puzzle everyone else is still working out, and you solved it three moves ago. A shout, a signal, the right order at the right second — and the ally who was going to swing once swings twice instead. You hit things too, when it's called for, but your real weapon is everyone else's turn.",
+        playIf: 'Play this if you want to make the whole party hit harder just by being in the fight, handing out extra attacks instead of taking them all yourself.',
+        tags: ['weapons', 'frontline', 'support', 'moderate'],
+        alternates: ['oathsworn', 'songweaver'],
+        focusQuestion: 'How do you lead from the front?',
+        focuses: [
+            {
+                id: 'sword-shield',
+                short: 'Sword & shield',
+                label: 'Sword and shield',
+                hint: 'You hold the line so your orders have somewhere safe to land.',
+                brief: "A longsword, a shield, and sturdy armor. Anchors the front of the fight so the allies you're directing have time to do what you tell them.",
+            },
+            {
+                id: 'great-weapon',
+                short: 'Great weapon',
+                label: 'A great two-hander',
+                hint: 'You lead the charge, not the retreat.',
+                brief: 'A greatsword or polearm and heavier armor. Leads from the front with the biggest hit on the field, and shouts the next order on the way in.',
+            },
+        ],
+    },
+    {
+        id: 'hunter',
+        name: 'Hunter',
+        glyph: '🏹',
+        tagline: "Whatever you're tracking already knows you're close.",
+        blurb: "You read a battlefield the way you'd read a game trail — where it's been, where it's going, and exactly where it'll be standing in three seconds. A quiver of specialized arrows and a pocketful of traps mean the terrain is working for you before the fight even starts. You'd rather end things from somewhere your quarry never thought to look.",
+        playIf: 'Play this if you want to fight at range, lay traps and pick the right arrow for the moment, and bring tracking and survival skills to the rest of the table.',
+        tags: ['weapons', 'ranged', 'nature', 'sneaky', 'damage', 'moderate'],
+        alternates: ['cheat', 'stormshifter'],
+        focusQuestion: 'How do you close out the hunt?',
+        focuses: [
+            {
+                id: 'bow',
+                short: 'Longbow',
+                label: 'A longbow',
+                hint: 'The fight ends before your quarry ever reaches you.',
+                brief: 'A longbow and medium armor. Dependable damage at any range, backed by the mark that makes your chosen target harder to ignore and harder to escape.',
+            },
+            {
+                id: 'two-weapon',
+                short: 'Two blades',
+                label: 'Two blades at once',
+                hint: 'Sometimes the hunt ends up close whether you planned it or not.',
+                brief: "Twin shortswords and medium armor. Closes the distance when the terrain or the target demands it, trading the bow's safety for more cuts per turn.",
+            },
+        ],
+    },
+    {
+        id: 'mage',
+        name: 'Mage',
+        glyph: '🔥',
+        tagline: "You didn't learn to control fire. You learned to stop flinching from it.",
+        blurb: "Every gesture you make bends something that isn't supposed to bend — flame, frost, and lightning all answer to you now, and you're learning to bend them together instead of one at a time. It took years of careful, dangerous study to get this far, and you are still, in a very real sense, holding something enormous at arm's length. Most people's worst day involves you losing your temper.",
+        playIf: "Play this if you want the deepest spellbook in the game — fire, ice, and lightning all at once — and don't mind a learning curve to match.",
+        tags: ['spells', 'arcane', 'damage', 'complex'],
+        alternates: ['shadowmancer', 'stormshifter'],
+    },
+    {
+        id: 'oathsworn',
+        name: 'Oathsworn',
+        glyph: '🛡️',
+        tagline: 'A promise, worn like armor.',
+        blurb: "You swore an oath out loud, in front of witnesses, and meant every word of it — and that vow backs every swing of your weapon and glows in your hands when you lay them on the wounded. Strike you, and you hit back harder than you did a moment ago. You go through the door first, and you don't step back from what you said you'd do.",
+        playIf: "Play this if you want to be the party's front line and its conscience — soaking hits, healing with a touch, and making enemies regret ever landing a blow.",
+        tags: ['weapons', 'spells', 'divine', 'frontline', 'support', 'face', 'moderate'],
+        alternates: ['berserker', 'commander'],
+        focusQuestion: 'How do you carry the oath?',
+        focuses: [
+            {
+                id: 'sword-shield',
+                short: 'Sword & shield',
+                label: 'Sword and shield — the protector',
+                hint: 'You stand in front of the people standing behind you.',
+                brief: 'A longsword, a shield, and the heaviest armor you can wear. The hardest thing in the party to put down, and the one who steps between.',
+            },
+            {
+                id: 'great-weapon',
+                short: 'Great two-hander',
+                label: 'A great two-hander — the smiter',
+                hint: 'One enormous blow, carried by everything you believe.',
+                brief: 'A greatsword or maul in heavy armor. Trades the shield for a single devastating strike that backs up the oath with proof.',
+            },
+        ],
+    },
+    {
+        id: 'shepherd',
+        name: 'Shepherd',
+        glyph: '🐺',
+        tagline: 'You never walk into a fight alone — something walks in beside you.',
+        blurb: "A spirit answered when you called, and it's been at your side ever since — a shape only you fully understand, able to mend a wound or tear into an enemy depending on what the moment calls for. You've learned to work both sides of the line between life and death, healing with one hand and hastening the end with the other. Nobody in your care gets left behind, and nothing you're hunting gets spared.",
+        playIf: 'Play this if you want a loyal spirit companion that can heal or fight at your call, balancing life and death magic without hiding in the back row.',
+        tags: ['spells', 'divine', 'nature', 'support', 'moderate'],
+        alternates: ['songweaver', 'stormshifter'],
+        focusQuestion: 'Which side of the line do you lean on?',
+        focuses: [
+            {
+                id: 'radiant',
+                short: 'Radiant magic',
+                label: 'Radiant — lead with the living',
+                hint: 'Your spirit heals as readily as it fights.',
+                brief: 'Healing and restoration spells with a radiant edge, and a spirit that leans toward mending allies over biting enemies. The reason the party walks out of a bad round still standing.',
+            },
+            {
+                id: 'necrotic',
+                short: 'Necrotic magic',
+                label: 'Necrotic — lead with the dying',
+                hint: 'Your spirit would rather take a bite out of the problem.',
+                brief: "Draining, withering necrotic spells, and a spirit that leans toward tearing into enemies over mending allies. Keeps the party up by thinning out what's hitting them.",
+            },
+        ],
+    },
+    {
+        id: 'songweaver',
+        name: 'Songweaver',
+        glyph: '🎻',
+        tagline: 'Every word you say is doing two things at once.',
+        blurb: "Music was never just music, not for you — wind moves through every note you play, and you've picked up a second kind of magic besides to go with it. A well-timed verse hands an ally a second chance at a roll that was about to go badly. You carry a weapon because the world sometimes insists on it, but your real instrument is whatever's standing in front of you.",
+        playIf: "Play this if you want to be the party's voice — bending wind magic and a school of your own choosing into songs that hand out rerolls and turn a bad situation into a good story.",
+        tags: ['spells', 'arcane', 'support', 'face', 'complex'],
+        alternates: ['shepherd', 'mage'],
+        focusQuestion: "What's the second school in your repertoire?",
+        focuses: [
+            {
+                id: 'fire',
+                short: 'Wind & Fire',
+                label: 'Wind and fire',
+                hint: 'Gusts that fan every flame you throw.',
+                brief: 'Wind spells paired with fire — gusts that carry your sound and flame that gives your songs some heat. Bold, bright, impossible to ignore.',
+            },
+            {
+                id: 'lightning',
+                short: 'Wind & Lightning',
+                label: 'Wind and lightning',
+                hint: 'A performance with its own thunderclap.',
+                brief: 'Wind spells paired with lightning — gusts and sudden cracks of thunder underscoring every verse. The loudest show in the party, in every sense.',
+            },
+            {
+                id: 'necrotic',
+                short: 'Wind & Necrotic',
+                label: 'Wind and necrotic',
+                hint: 'Some songs are better left unplayed.',
+                brief: "Wind spells paired with necrotic magic — gusts that carry a haunting edge, and verses that wear an enemy down from the inside. The darker half of the songbook.",
+            },
+        ],
+    },
+    {
+        id: 'stormshifter',
+        name: 'Stormshifter',
+        glyph: '⛈️',
+        tagline: "The weather is a mood, and you're currently feeling it.",
+        blurb: "Storm magic got into you early, and it never quite settled back down — wind and lightning answer when you reach for them, restless just under the skin. When that's not enough, you let it take you somewhere stranger, your shape coming apart and reforming as a beast. Small ones, at first. You're still learning how much storm a body can hold.",
+        playIf: 'Play this if you want to be unpredictable and versatile — slinging wind and lightning magic one turn and shifting into a beast the next, with bigger forms waiting as you grow into the power.',
+        tags: ['spells', 'nature', 'damage', 'complex'],
+        alternates: ['mage', 'shepherd'],
+        focusQuestion: 'Which half of the storm do you lead with?',
+        focuses: [
+            {
+                id: 'wind',
+                short: 'Wind magic',
+                label: 'Wind — speed and gusts',
+                hint: 'Everything about you moves faster when the air agrees.',
+                brief: 'Gusts and gales that push, shove, and speed you around the field, backed by a beast shape built for closing distance fast.',
+            },
+            {
+                id: 'lightning',
+                short: 'Lightning magic',
+                label: 'Lightning — shocks and thunder',
+                hint: 'The kind of storm you feel before you see it.',
+                brief: 'Lightning bolts and rolling thunder, backed by a beast shape built to crash into a fight and knock it sideways.',
+            },
+        ],
+    },
+    {
+        id: 'zephyr',
+        name: 'Zephyr',
+        glyph: '🌬️',
+        tagline: "By the time they see you, you're already somewhere else.",
+        blurb: "You move like the wind decided to take an interest in you personally — fast past the point of being fair, quiet past the point of being polite. No weapon keeps up with you, so you mostly don't bother carrying one, and you've picked up a growing bag of martial arts tricks to make every strike count for more than its size. Standing still is the only thing you're bad at.",
+        playIf: 'Play this if you want to be the fastest, hardest-to-pin-down character at the table, with a trick for nearly every situation a fight can throw at you.',
+        tags: ['unarmed', 'no-magic', 'damage', 'moderate'],
+        alternates: ['berserker', 'cheat'],
+        focusQuestion: 'What carries your strikes?',
+        focuses: [
+            {
+                id: 'unarmed',
+                short: 'Bare hands',
+                label: 'Nothing but your hands and feet',
+                hint: "The wind doesn't need a weapon and neither do you.",
+                brief: 'No weapon, no armor — just speed, strikes, and a gust at your back. The purest, simplest version of the class.',
+            },
+            {
+                id: 'staff',
+                short: 'Staff',
+                label: 'A staff',
+                hint: 'Reach, leverage, and still fast enough to matter.',
+                brief: 'A quarterstaff, still worn light. Hits a little harder than a fist and keeps a little more distance, without slowing you down.',
+            },
+        ],
+    },
+    {
+        id: 'shadowmancer',
+        name: 'Shadowmancer',
+        glyph: '🌑',
+        tagline: 'Something in the dark made you an offer, and you took it.',
+        blurb: "You didn't earn this power so much as agree to it. Something that lives where the light doesn't reach lends you its strength, and you pay it back by using that strength exactly the way it would. A bolt of pure shadow from your hand, or something darker still standing beside you, doing the rest of the work.",
+        playIf: 'Play this if you want to blast enemies with shadow and death magic while something summoned from the dark fights alongside you.',
+        tags: ['spells', 'arcane', 'damage', 'complex'],
+        alternates: ['mage', 'shepherd'],
+        focusQuestion: 'How do you bring the dark to bear?',
+        focuses: [
+            {
+                id: 'blaster',
+                short: 'Shadow blasts',
+                label: 'Shadow blasts — hit them yourself',
+                hint: 'Why summon help when you can just end it directly.',
+                brief: 'Necrotic bolts and shadow blasts thrown straight at the enemy. The most direct Shadowmancer, and the one who needs the least setup.',
+            },
+            {
+                id: 'summoner',
+                short: 'Shadow minions',
+                label: 'Shadow minions — let something else do the biting',
+                hint: "You stay back. It doesn't.",
+                brief: 'Necrotic magic spent summoning shadow minions that fight at your side, freeing you up to stay at range and keep them coming.',
+            },
+        ],
+    },
+];
+
+const TAG_GROUPS = [
+    {
+        label: 'How you fight',
+        tags: [
+            ['weapons', 'Weapons & steel'],
+            ['spells', 'Mostly spells'],
+            ['unarmed', 'Fists & feet'],
+            ['ranged', 'At a distance'],
+        ],
+    },
+    {
+        label: 'Where power comes from',
+        tags: [
+            ['no-magic', 'No magic at all'],
+            ['divine', 'A god'],
+            ['nature', 'The natural world'],
+            ['arcane', 'Innate / arcane'],
+        ],
+    },
+    {
+        label: 'Your job in the party',
+        tags: [
+            ['frontline', 'Soak the hits'],
+            ['damage', 'Deal the damage'],
+            ['support', 'Heal & support'],
+            ['sneaky', 'Sneak & scout'],
+            ['face', 'Talk your way through'],
+        ],
+    },
+    {
+        label: 'How much to juggle',
+        tags: [
+            ['easy', 'Simple to start'],
+            ['moderate', 'Some moving parts'],
+            ['complex', 'Lots to track'],
+        ],
+    },
+];
+
+// Ancestries carry a real mechanical bonus in Nimble, not just flavor —
+// pick one and copy its bonus straight onto your character sheet.
+const ANCESTRIES = [
+    {
+        id: 'human',
+        name: 'Human',
+        size: 'Medium',
+        glyph: '🧍',
+        tagline: 'Shows up everywhere, and is usually already up to something.',
+        blurb: 'Found in every terrain and environment, their curiosity and ambition drive them to explore every corner of the world, making them a ubiquitous and versatile race.',
+        bonusName: 'Tenacious',
+        bonusEffect: '+1 to all skills and Initiative.',
+    },
+    {
+        id: 'dwarf',
+        name: 'Dwarf',
+        size: 'Medium',
+        glyph: '⛏️',
+        tagline: 'Built like the stone their name comes from.',
+        blurb: 'Dwarf, in the old language, means "stone." You are resilient, solid, stout. Even when driven to exhaustion, you will not falter. Forgoing speed, you are gifted with physical vitality and a belly that can handle the finest (and worst) consumables this world has to offer.',
+        bonusName: 'Stout',
+        bonusEffect: '+2 max Hit Dice, +1 max Wounds, –1 Speed. You know Dwarvish if your INT is not negative.',
+    },
+    {
+        id: 'elf',
+        name: 'Elf',
+        size: 'Medium',
+        glyph: '🌙',
+        tagline: 'Fast enough to end an argument before it starts.',
+        blurb: 'Elves epitomize swiftness and grace. Their tall, slender forms belie their innate speed, grace, and wit. Formidable in both diplomacy and combat, elves strike swiftly, often preventing the worst by acting first.',
+        bonusName: 'Lithe',
+        bonusEffect: 'Advantage on Initiative, +1 Speed. You know Elvish if your INT is not negative.',
+    },
+    {
+        id: 'halfling',
+        name: 'Halfling',
+        size: 'Small',
+        glyph: '🍀',
+        tagline: 'More luck packed in than their size has any right to.',
+        blurb: 'Kind of like a human, but smaller (except for the feet). Where does our luck come from? Well…you know what they say about rabbit feet? Well, we’ve got feet for days compared to them. Imagine the amount of luck you could fit into these bad boys!',
+        bonusName: 'Elusive',
+        bonusEffect: '+1 to Stealth. If you fail a save, you can succeed instead, 1/Safe Rest.',
+    },
+    {
+        id: 'gnome',
+        name: 'Gnome',
+        size: 'Small',
+        glyph: '🔧',
+        tagline: 'Cheerful, curious, and never quite finished tinkering.',
+        blurb: 'Eccentric, curious, and perpetually optimistic, gnomes are cheerful — especially when compared to their typically grumpier and larger kin, the dwarves. Known for their tinkering, spreading cheer, and playful antics, gnomes pursue their passions with a scatterbrained enthusiasm.',
+        bonusName: 'Optimistic',
+        bonusEffect: 'Allow an ally within Reach 6 to reroll any single die, resets when healed to your max HP. –1 Speed. You know Dwarvish if your INT is not negative (but you call it Gnomish, of course).',
+    },
+];
+
+// House rules from the book, not ancestries of their own — shown below the grid.
+const ANCESTRY_NOTES = [
+    {
+        title: 'What about Half-Elves?',
+        body: 'Mix the ancestries however makes sense in your world. You can pick one ancestral bonus and use it instead of both, or use both half as effectively or half as often.',
+    },
+    {
+        title: 'Flavor is free',
+        body: 'Want to play a Stout Halfling instead of an Elusive one? An Optimistic Human instead of Tenacious? As long as it makes sense and the GM is on board, go for it.',
+    },
+];
+
+// A glimpse of a character's past — pick one trait/perk and the story reason behind it.
+const BACKGROUNDS = [
+    {
+        id: 'back-out-of-retirement',
+        name: 'Back Out of Retirement',
+        glyph: '🧓',
+        body: "You've forgotten more than most adventurers these days know. Talk with your GM about what pulled you back in, then pick one: gain 1 Wound to use an ability or cast a spell as if you were 1 level higher (\"Let's see if I still remember how to do this...\"), or take –1 max Wounds, because these old bones show their age.",
+    },
+    {
+        id: 'devoted-protector',
+        name: 'Devoted Protector',
+        glyph: '🤝',
+        body: "Choose 1 ally in your party. You can survive +3 max Wounds as long as they're nearby. Whenever they take a Wound, you do too.",
+    },
+    {
+        id: 'academy-dropout',
+        name: 'Academy Dropout',
+        glyph: '📚',
+        body: "School just isn't for everyone. You learn by experience in the real world — or at least that's what you tell yourself. Learn any 1 Utility Spell.",
+    },
+    {
+        id: 'made-a-bad-choice',
+        name: 'Made a BAD Choice',
+        glyph: '💰',
+        body: 'Start with 500 or 1000 extra gold, or an uncommon or rare magical item your GM allows. In exchange, gain an equally powerful curse, or an enemy who wants it back. Your GM may let you pick this one twice.',
+    },
+    {
+        id: 'haunted-past',
+        name: 'Haunted Past',
+        glyph: '👻',
+        body: "You're haunted by voices that occasionally offer cryptic advice. Sometimes they're genuinely helpful. Other times they just want to watch you suffer. Advantage against fear.",
+    },
+    {
+        id: 'ear-to-the-ground',
+        name: 'Ear to the Ground',
+        glyph: '👂',
+        body: 'Advantage on checks to know or obtain gossip about events that will happen soon, or happened less than a year ago.',
+    },
+    {
+        id: 'been-around',
+        name: 'What? I’ve Been Around',
+        glyph: '🎭',
+        body: "Once per location (or at your GM's discretion), you happen to know just the person who has the information you need, or who could get you out of a jam. Roll 1d20: 1–5, they want you dead. 6–12, you owe them money. 13–19, they can be convinced to help. 20, they're your biggest fan — or madly in love with you.",
+    },
+    {
+        id: 'acrobat',
+        name: 'Acrobat',
+        glyph: '🤸',
+        body: 'You can be thrown by a larger ally, really far. Half damage from falling and forced movement.',
+    },
+    {
+        id: 'wild-one',
+        name: 'Wild One',
+        glyph: '🦊',
+        body: "Whether it's the flowers in your hair, your smell, or the way you carry yourself, wild creatures are less afraid of you and more willing to help. +1 Naturecraft. While Field Resting in the wild, roll your Hit Dice with advantage.",
+    },
+    {
+        id: 'fey-touched',
+        name: 'Fey Touched',
+        glyph: '🧚',
+        body: 'You take half damage from all magical effects, but double damage from weapons made of metal (before armor is applied).',
+    },
+    {
+        id: 'survivalist',
+        name: 'Survivalist',
+        glyph: '🏕️',
+        body: 'You never run out of your own personal rations — anything can be food if you try hard enough. Advantage against poison saves. +1 max Hit Die.',
+    },
+    {
+        id: 'home-at-sea',
+        name: 'Home at Sea',
+        glyph: '⚓',
+        body: 'Recover twice as many Wounds and HP while resting on a ship or near water. You can fill in for a first mate or captain in a pinch. Advantage on water-related skill checks.',
+    },
+    {
+        id: 'home-underground',
+        name: 'At Home Underground',
+        glyph: '🕳️',
+        body: 'You dig twice as fast as others, and safe resting locations underground always count as Lavish lodging for you. You struggle to rest (INT save) while it’s raining — “Water… from the SKY?!”',
+    },
+    {
+        id: 'raised-by-goblins',
+        name: 'Raised by Goblins',
+        glyph: '👺',
+        body: "You speak Goblin natively, far better than someone who picked it up later in life. You automatically notice and avoid crudely-made traps, and have advantage to notice and disarm more sophisticated ones. (You can reskin this as being raised by any other ancestry instead — swap the language for theirs, and the trap sense for one helpful, iconic ability their people would teach, the way Dwarves know Dwarvish and smithing or stonecraft.)",
+    },
+    {
+        id: 'history-buff',
+        name: 'History Buff',
+        glyph: '📖',
+        body: 'Advantage on all Lore checks related to items, facts, or events more than 100 years old.',
+    },
+    {
+        id: 'con-artist',
+        name: '(Former) Con Artist',
+        glyph: '🃏',
+        body: 'You can forge most documents or mimic voices flawlessly, and you have a criminal contact in most major cities. Your reputation tends to precede you, though — at least until you prove yourself trustworthy.',
+    },
+    {
+        id: 'secretly-undead',
+        name: '(Secretly) Undead',
+        glyph: '🧟',
+        body: "Unnatural resilience: you're immune to disease and don't need to eat, drink, or breathe. Children, animals, and Celestials are uneasy around you, and many would be horrified to learn what you really are.",
+    },
+    {
+        id: 'finer-things',
+        name: 'Taste for the Finer Things',
+        glyph: '🍷',
+        body: 'You always know the current customs and dress of the upper classes, and may know a few of their secrets besides. Advantage on Influence checks with the upper class.',
+    },
+    {
+        id: 'fearless',
+        name: 'Fearless',
+        glyph: '🦁',
+        body: "You're immune to the Frightened condition. +1 Initiative, –1 Armor.",
+    },
+    {
+        id: 'smart-sometimes',
+        name: 'So Dumb I’m Smart Sometimes',
+        glyph: '🤪',
+        requirement: '0 or negative INT at creation',
+        body: 'Reroll an INT-related skill check once per day. Reroll a failed INT save with advantage, once per Safe Rest.',
+    },
+    {
+        id: 'wily-underdog',
+        name: 'Wily Underdog',
+        glyph: '🦝',
+        requirement: '0 or negative STR at creation',
+        body: 'Once per day, reroll a failed STR-related roll (a STR attack, STR save, or Might check) using a different stat instead.',
+    },
+    {
+        id: 'bumblewise',
+        name: 'Bumblewise',
+        glyph: '🪀',
+        requirement: '0 or negative WIL at creation',
+        body: 'A result of 1 or less on any WIL-related roll — a WIL save, or a Naturecraft, Perception, Influence, or Insight check — counts as a natural 20 instead.',
+    },
+    {
+        id: 'accidental-acrobat',
+        name: 'Accidental Acrobat',
+        glyph: '🤹',
+        requirement: '0 or negative DEX at creation',
+        body: 'Whenever you fail a DEX-related roll (a DEX attack, DEX save, Stealth check, or Finesse check), you may roll again. If you still fail, the consequences are bad.',
+    },
+    {
+        id: 'tradesman',
+        name: 'Tradesman / Artisan',
+        glyph: '🔨',
+        body: 'Choose a profession — baker, smith, stonemason, weaver, leatherworker, or similar. Checks related to that profession are made with advantage, and you retain specialized knowledge of the trade.',
+    },
+];
+
+const BACKGROUND_NOTES = [
+    {
+        title: 'Make it your own',
+        body: "Backgrounds are a starting point. Swap traits, change the flavor, or blend two together — if you want the Utility Spell without the Academy Dropout flavor, invent your own reason you learned it. Work with your GM to keep anything you change balanced with the rest of the table.",
+    },
+];
+
+const QUIZ = {
+    start: {
+        q: "When trouble starts, what's your first instinct?",
+        options: [
+            { label: 'Meet it with steel and muscle', hint: 'You trust your arms, your reflexes, and a good weapon.', next: 'weapons' },
+            { label: 'Answer it with magic', hint: 'You reach for power that other people cannot see.', next: 'magic' },
+            { label: 'Lead with something more than muscle — a vow, a bond, or your voice', hint: 'Steel still matters, but something bigger backs it up.', next: 'more' },
+        ],
+    },
+    weapons: {
+        q: 'Where do you want to be standing when the fight starts?',
+        options: [
+            { label: "Right in their face, taking the hits", hint: 'Let them come to you. You can absorb more than they expect.', next: 'weapons_front' },
+            { label: "Moving fast, striking where they don't expect it", hint: 'Being hit is a mistake, and you intend to avoid making it.', next: 'weapons_fast' },
+        ],
+    },
+    weapons_front: {
+        q: 'What carries you through?',
+        options: [
+            { label: 'Raw fury — you get angry, and things break', hint: 'No technique required. The anger is the technique.', next: 'focus_berserker' },
+            { label: 'Orders, tactics, and leading the charge', hint: 'You fight too, but your real job is everyone else’s turn.', next: 'focus_commander' },
+        ],
+    },
+    weapons_fast: {
+        q: 'Which are you?',
+        options: [
+            { label: 'A martial artist faster than the eye can follow', hint: 'Nothing but your hands, feet, and a gust at your back.', next: 'focus_zephyr' },
+            { label: 'A cheat who bends a fair fight until it isn’t one', hint: 'Loaded dice, hidden blades, and a lie ready if you need it.', next: 'focus_cheat' },
+            { label: 'A tracker who ends a fight from range', hint: 'A marked target rarely gets to run.', next: 'focus_hunter' },
+        ],
+    },
+    magic: {
+        q: 'What kind of magic do you carry?',
+        options: [
+            { label: 'Raw elemental power — fire, ice, and lightning, all at once', hint: 'Years of careful, dangerous study, aimed outward.', result: { cls: 'mage' } },
+            { label: 'The storm itself, living just under your skin', hint: 'Wind and lightning, with a beast shape waiting underneath.', next: 'focus_stormshifter' },
+            { label: 'Magic worked into music and performance', hint: 'Every verse is doing two things at once.', next: 'focus_songweaver' },
+            { label: 'Something borrowed from the dark, and owed back', hint: 'A bolt of shadow, or something worse standing beside you.', next: 'focus_shadowmancer' },
+        ],
+    },
+    more: {
+        q: 'What backs up your steel?',
+        options: [
+            { label: 'An oath you swore out loud, and intend to keep', hint: 'The vow carries real weight now, behind every swing.', next: 'focus_oathsworn' },
+            { label: 'A spirit that answered when you called, and never left', hint: 'You never walk into a fight alone.', next: 'focus_shepherd' },
+        ],
+    },
+};
+
+// Each class's focus question becomes a real quiz node, so Back, the breadcrumb,
+// and the question counter all work on it with no special-casing.
+CLASSES.forEach(c => {
+    if (!c.focuses) return;
+    QUIZ['focus_' + c.id] = {
+        q: c.focusQuestion,
+        options: c.focuses.map(f => ({
+            label: f.label,
+            hint: f.hint,
+            result: { cls: c.id, focus: f.id },
+        })),
+    };
+});
+
+// =====================================================================
+//  LOOKUPS
+// =====================================================================
+
+const byId = Object.fromEntries(CLASSES.map(c => [c.id, c]));
+
+// tag id -> human label, for rendering chips on the class cards
+const TAG_LABELS = Object.fromEntries(
+    TAG_GROUPS.flatMap(g => g.tags)
+);
+
+const narrow = window.matchMedia('(max-width: 640px)');
+
+function esc(s) {
+    return String(s).replace(/[&<>"]/g, ch => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[ch]));
+}
+
+// =====================================================================
+//  VIEW SWITCHING
+// =====================================================================
+
+const views = {
+    home: document.getElementById('view-home'),
+    quiz: document.getElementById('view-quiz'),
+    browse: document.getElementById('view-browse'),
+    ancestries: document.getElementById('view-ancestries'),
+    backgrounds: document.getElementById('view-backgrounds'),
+};
+
+function show(name) {
+    Object.entries(views).forEach(([key, el]) => { el.hidden = key !== name; });
+    if (name === 'quiz') renderQuiz();
+    if (name === 'browse') {
+        renderBrowse();
+        document.getElementById('browse-h').focus();
+    }
+    if (name === 'ancestries') document.getElementById('ancestries-h').focus();
+    if (name === 'backgrounds') document.getElementById('backgrounds-h').focus();
+    window.scrollTo(0, 0);
+}
+
+document.addEventListener('click', e => {
+    const target = e.target.closest('[data-go]');
+    if (target) show(target.dataset.go);
+});
+
+// =====================================================================
+//  CLASS CARDS
+// =====================================================================
+
+function chipsHTML(cls) {
+    return cls.tags
+        .map(t => `<span class="chip">${esc(TAG_LABELS[t] || t)}</span>`)
+        .join('');
+}
+
+// variant: 'full' (browse + result), 'alt' (the smaller "also like" cards)
+function cardHTML(cls, variant) {
+    const head = `
+        <div class="card-top">
+            <span class="glyph" aria-hidden="true">${cls.glyph}</span>
+            <h3>${esc(cls.name)}</h3>
+        </div>
+        <p class="tagline">${esc(cls.tagline)}</p>`;
+
+    if (variant === 'alt') {
+        return `<article class="card card-alt">${head}
+            <div class="chips">${chipsHTML(cls)}</div>
+            <p class="play-if">${esc(cls.playIf)}</p>
+        </article>`;
+    }
+
+    const body = `
+        <p class="blurb">${esc(cls.blurb)}</p>
+        <p class="play-if">${esc(cls.playIf)}</p>`;
+
+    // On phones the write-up collapses so the grid stays scannable.
+    const details = narrow.matches && variant === 'full'
+        ? `<details><summary>Read more</summary>${body}</details>`
+        : body;
+
+    // Stays outside the collapsible part — it's the most scannable line on the card.
+    const ways = cls.focuses
+        ? `<p class="ways"><b>Ways to play it:</b> ${cls.focuses.map(f => esc(f.short)).join(' · ')}</p>`
+        : '';
+
+    const extraClass = variant === 'result' ? ' card-result' : '';
+
+    // The result screen gets its focus spelled out in its own panel instead.
+    return `<article class="card${extraClass}">${head}
+        <div class="chips">${chipsHTML(cls)}</div>
+        ${variant === 'result' ? body : details + ways}
+    </article>`;
+}
+
+// =====================================================================
+//  QUIZ
+// =====================================================================
+
+const stage = document.getElementById('quiz-stage');
+
+let path = ['start'];   // stack of visited node ids — makes Back a simple pop
+let answers = [];       // labels chosen so far, for the breadcrumb
+let result = null;      // class id once we hit a leaf
+
+// How many more questions remain below this node, worst case.
+function depthFrom(id) {
+    const node = QUIZ[id];
+    if (!node) return 0;
+    return 1 + Math.max(...node.options.map(o => (o.result ? 0 : depthFrom(o.next))));
+}
+
+function renderQuiz() {
+    if (result) return renderResult();
+
+    const id = path[path.length - 1];
+    const node = QUIZ[id];
+    const asked = path.length;
+    const total = path.length - 1 + depthFrom(id);
+
+    stage.innerHTML = `
+        <p class="progress">Question ${asked} of ${total}</p>
+        <p class="breadcrumb">${answers.map(a => `<b>${esc(a)}</b>`).join(' › ')}</p>
+        <h3 id="question" class="question" tabindex="-1">${esc(node.q)}</h3>
+        <div class="answers">
+            ${node.options.map((o, i) => `
+                <button class="answer" type="button" data-answer="${i}">
+                    <span class="label">${esc(o.label)}</span>
+                    <span class="hint">${esc(o.hint)}</span>
+                </button>`).join('')}
+        </div>
+        <div class="quiz-foot">
+            <button class="btn" type="button" data-quiz="back" ${path.length === 1 ? 'disabled' : ''}>← Back</button>
+            <button class="btn" type="button" data-quiz="restart">Start over</button>
+        </div>`;
+
+    document.getElementById('question').focus();
+}
+
+// Identical on every result, so it lives here rather than in the template.
+const NEXT_STEPS = `
+    <section class="next-steps">
+        <h4>You're not done yet</h4>
+        <ul>
+            <li><b>Pick an ancestry.</b> That's the other half of your character, and there's a list of them on this site. Each one comes with a small mechanical bonus, so add it to your sheet once you've chosen.</li>
+            <li><b>Pick a background.</b> A trait and a perk from before the adventuring started — there's a list of those too.</li>
+            <li><b>Bring a name.</b> Turn up at the table with something to call them. That part isn't optional.</li>
+            <li><b>Bring a story, if you want one.</b> A sentence or two about where they came from, or what they're like to be around, is plenty. Entirely optional — plenty of great characters start out as nothing but a name and a weapon.</li>
+        </ul>
+        <div class="quiz-foot">
+            <button class="btn btn-primary" type="button" data-go="ancestries">Pick an ancestry →</button>
+            <button class="btn btn-primary" type="button" data-go="backgrounds">Pick a background →</button>
+        </div>
+    </section>`;
+
+function renderResult() {
+    const cls = byId[result.cls];
+    const focus = (cls.focuses || []).find(f => f.id === result.focus);
+    const alts = cls.alternates.map(id => byId[id]);
+
+    stage.innerHTML = `
+        <p class="result-kicker">Your character</p>
+        <h3 id="question" class="result-name" tabindex="-1">${esc(cls.name)}</h3>
+        ${focus ? `<p class="result-focus">${esc(focus.short)}</p>` : ''}
+        ${cardHTML(cls, 'result')}
+        ${focus ? `
+        <section class="focus-panel">
+            <h4>Your focus: ${esc(focus.label)}</h4>
+            <p>${esc(focus.brief)}</p>
+        </section>` : ''}
+        ${NEXT_STEPS}
+        <h4 class="alt-head">You might also like</h4>
+        <div class="grid">${alts.map(c => cardHTML(c, 'alt')).join('')}</div>
+        <div class="quiz-foot">
+            <button class="btn" type="button" data-quiz="back">← Back</button>
+            <button class="btn" type="button" data-quiz="restart">Retake the quiz</button>
+            <button class="btn" type="button" data-go="browse">Browse every class</button>
+        </div>`;
+
+    document.getElementById('question').focus();
+}
+
+stage.addEventListener('click', e => {
+    const answerBtn = e.target.closest('[data-answer]');
+    if (answerBtn) {
+        const node = QUIZ[path[path.length - 1]];
+        const option = node.options[Number(answerBtn.dataset.answer)];
+        answers.push(option.label);
+        if (option.result) result = option.result;
+        else path.push(option.next);
+        renderQuiz();
+        return;
+    }
+
+    const navBtn = e.target.closest('[data-quiz]');
+    if (!navBtn) return;
+
+    if (navBtn.dataset.quiz === 'restart') {
+        path = ['start'];
+        answers = [];
+        result = null;
+    } else if (navBtn.dataset.quiz === 'back') {
+        answers.pop();
+        if (result) result = null;      // step back from the result to the last question
+        else if (path.length > 1) path.pop();
+    }
+    renderQuiz();
+});
+
+// =====================================================================
+//  BROWSE + FILTERS
+// =====================================================================
+
+const filterForm = document.getElementById('filters');
+const gridEl = document.getElementById('class-grid');
+const countEl = document.getElementById('count');
+
+filterForm.innerHTML = TAG_GROUPS.map(group => `
+    <fieldset>
+        <legend>${esc(group.label)}</legend>
+        ${group.tags.map(([id, label]) => `
+            <label class="check">
+                <input type="checkbox" value="${id}">
+                <span>${esc(label)}</span>
+            </label>`).join('')}
+    </fieldset>`).join('');
+
+function activeTags() {
+    return new Set(
+        [...filterForm.querySelectorAll('input:checked')].map(i => i.value)
+    );
+}
+
+// OR within a filter group, AND across groups — the standard faceted behavior,
+// so ticking a second box in the same group widens rather than empties the list.
+function matches(cls, active) {
+    return TAG_GROUPS.every(group => {
+        const picked = group.tags.map(([id]) => id).filter(id => active.has(id));
+        return picked.length === 0 || picked.some(id => cls.tags.includes(id));
+    });
+}
+
+function renderBrowse() {
+    const active = activeTags();
+    const shown = CLASSES.filter(c => matches(c, active));
+
+    countEl.textContent = `Showing ${shown.length} of ${CLASSES.length} classes`;
+
+    gridEl.innerHTML = shown.length
+        ? shown.map(c => cardHTML(c, 'full')).join('')
+        : `<div class="empty">No class matches all of those at once. Try unchecking something.</div>`;
+
+    gridEl.classList.toggle('grid', shown.length > 0);
+}
+
+filterForm.addEventListener('change', renderBrowse);
+
+document.getElementById('clear-filters').addEventListener('click', () => {
+    filterForm.querySelectorAll('input:checked').forEach(i => { i.checked = false; });
+    renderBrowse();
+});
+
+// Card write-ups collapse on phones, so re-render when we cross that threshold.
+narrow.addEventListener('change', () => {
+    if (!views.browse.hidden) renderBrowse();
+});
+
+// =====================================================================
+//  ANCESTRIES — a static list. No filters and no quiz, but each one
+//  carries a real bonus, shown in its own panel on the card.
+// =====================================================================
+
+document.getElementById('ancestry-grid').innerHTML = ANCESTRIES.map(a => `
+    <article class="card">
+        <div class="card-top">
+            <span class="glyph" aria-hidden="true">${a.glyph}</span>
+            <h3>${esc(a.name)}</h3>
+        </div>
+        <div class="chips"><span class="chip">${esc(a.size)}</span></div>
+        <p class="tagline">${esc(a.tagline)}</p>
+        <p class="blurb">${esc(a.blurb)}</p>
+        <section class="focus-panel">
+            <h4>${esc(a.bonusName)}</h4>
+            <p>${esc(a.bonusEffect)}</p>
+        </section>
+    </article>`).join('');
+
+document.getElementById('ancestry-notes').innerHTML = ANCESTRY_NOTES.map(n => `
+    <article class="card card-alt">
+        <h3>${esc(n.title)}</h3>
+        <p class="play-if">${esc(n.body)}</p>
+    </article>`).join('');
+
+// =====================================================================
+//  BACKGROUNDS — a static list, same treatment as ancestries.
+// =====================================================================
+
+document.getElementById('background-grid').innerHTML = BACKGROUNDS.map(b => `
+    <article class="card">
+        <div class="card-top">
+            <span class="glyph" aria-hidden="true">${b.glyph}</span>
+            <h3>${esc(b.name)}</h3>
+        </div>
+        ${b.requirement ? `<div class="chips"><span class="chip">Requires ${esc(b.requirement)}</span></div>` : ''}
+        <p class="blurb">${esc(b.body)}</p>
+    </article>`).join('');
+
+document.getElementById('background-notes').innerHTML = BACKGROUND_NOTES.map(n => `
+    <article class="card card-alt">
+        <h3>${esc(n.title)}</h3>
+        <p class="play-if">${esc(n.body)}</p>
+    </article>`).join('');
+
+// =====================================================================
+
+show('home');
+</script>
+</body>
+</html>
